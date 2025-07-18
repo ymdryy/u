@@ -1,0 +1,86 @@
+/* カラー設定 */
+:root {
+    /* テキスト,背景 */
+    --firstback: #f0f0f4;
+    --secondback: #ffffff;
+    --thirdback: #f6f6fa;
+    --fourthback: #e8e8eb;
+    --fifthback: #eaeaff;
+    --sixthback: #c4c4ca;
+    --firstback-t: #f0f0f4bb;
+    --secondback-t: #ffffffbb;
+    --thirdback-t: #f6f6faaa;
+    --fourthback-t: #e8e8ebaa;
+    --fifthback-t: #eaeaff99;
+    --sixthback-t: #c4c4ca99;
+    --maintext: #0b0b0f;
+    --subtext: #555559;
+    --secondtext: #0b0b0fbb;
+    --thirdtext: #0b0b0f88;
+    --btn: #3a3a3a;
+    --btnhover: #000000;
+    --btntext: #ffffff;
+    --url: #1f7dff;
+    --urlhover: #3ea5ff;
+    --line: #aaaaaa;
+    --header-back: #ffffffbb;
+    --headerback: linear-gradient(var(--firstback), #ffffffbb);
+    /* テーマカラー */
+    --themecolor: #1c7eff;
+    --themecolorhover: #539dff;
+    --accentcolor: #ff9900;
+    --accentcolorhover: #d37f00;
+    --explain: #b700ff;
+    --help: #ff7b00;
+    --support: #0084ff;
+    --explainback: #b700ff33;
+    --helpback: #ff7b0033;
+    --supportback: #0084ff33;
+
+    --width-ss: 500px;
+    --width-s: 767px;
+    --width-m: 1000px;
+    --width-l: 1280px;
+    --width-xl: 1920px;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* テキスト,背景 */
+        --firstback: #18181c;
+        --secondback: #000000;
+        --thirdback: #202022;
+        --fourthback: #303032;
+        --fifthback: #404042;
+        --sixthback: #505052;
+        --firstback-t: #18181cbb;
+        --secondback-t: #000000bb;
+        --thirdback-t: #202022aa;
+        --fourthback-t: #303032aa;
+        --fifthback-t: #40404299;
+        --sixthback-t: #50505299;
+        --maintext: #fbfbff;
+        --subtext: #aaaaaa;
+        --secondtext: #fbfbffbb;
+        --thirdtext: #fbfbff88;
+        --btn: #d1d1d1;
+        --btnhover: #ffffff;
+        --btntext: #000000;
+        --url: #569cff;
+        --urlhover: #40a6ff;
+        --line: #777777;
+        --header-back: #000000bb;
+        --headerback: linear-gradient(var(--firstback), #202024aa);
+        /* テーマカラー */
+        --themecolor: #5188ff;
+        --themecolorhover: #7ca6ff;
+        --accentcolor: #ec8b29;
+        --accentcolorhover: #fcaa58;
+        --explain: #b700ff;
+        --help: #ff7b00;
+        --support: #0084ff;
+        --explainback: #b700ff33;
+        --helpback: #ff7b0033;
+        --supportback: #0084ff33;
+    }
+}

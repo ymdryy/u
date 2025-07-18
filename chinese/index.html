@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国語単語学習</title>
+    <!-- 修正: CSSのパスを修正 -->
+    <link rel="stylesheet" href="../css/color.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- 設定画面 -->
+        <div id="settings-screen" class="screen active">
+            <header>
+                <h1>中国語単語学習</h1>
+            </header>
+            <main>
+                <section class="settings-card">
+                    <h2>練習設定</h2>
+                    <div class="setting-group">
+                        <h3>範囲選択 (複数選択可)</h3>
+                        <div id="lesson-selection" class="checkbox-grid">
+                            <!-- JSで動的に生成 -->
+                        </div>
+                    </div>
+                    <div class="setting-group">
+                        <h3>問題形式</h3>
+                        <div id="question-mode-selection" class="radio-group">
+                            <label><input type="radio" name="question-mode" value="jp-cn-pin" checked><span>日本語 → 簡体字/ピンイン</span></label>
+                            <label><input type="radio" name="question-mode" value="cn-jp-pin"><span>簡体字 → 日本語/ピンイン</span></label>
+                            <label><input type="radio" name="question-mode" value="pin-jp-cn"><span>ピンイン → 日本語/簡体字</span></label>
+                        </div>
+                    </div>
+                     <div class="setting-group">
+                        <h3>出題順</h3>
+                        <select id="order-mode">
+                            <option value="random">ランダム</option>
+                            <option value="weak">苦手な単語から</option>
+                        </select>
+                    </div>
+                    <!-- 追加: 読み上げ設定 -->
+                    <div class="setting-group">
+                        <h3>音声設定</h3>
+                        <div class="radio-group">
+                             <label><input type="checkbox" id="tts-enabled-checkbox" checked><span>中国語を読み上げる</span></label>
+                        </div>
+                    </div>
+                    <button id="start-btn" class="btn btn-primary">スタート</button>
+                </section>
+                <section class="stats-card">
+                     <button id="show-stats-btn" class="btn btn-secondary">今までの結果を見る</button>
+                </section>
+            </main>
+        </div>
+
+        <!-- 練習画面 -->
+        <div id="exercise-screen" class="screen">
+            <header class="exercise-header">
+                <div id="exercise-info">
+                    <p id="progress-text">1 / 10</p>
+                </div>
+                <button id="exit-exercise-btn" class="btn btn-sm">終了</button>
+            </header>
+            <main>
+                <div class="word-card">
+                    <div id="question-area">
+                        <p id="question-text" lang="zh-CN">你好</p>
+                    </div>
+                    <div id="answer-area" class="hidden">
+                        <p id="answer-simplified" lang="zh-CN">你好</p>
+                        <p id="answer-pinyin">nǐ hǎo</p>
+                        <p id="answer-japanese">こんにちは</p>
+                        <p id="answer-pos">挨拶</p>
+                        <div id="related-words-area" class="hidden">
+                            <h4>関連単語</h4>
+                            <ul id="related-words-list"></ul>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer class="exercise-footer">
+                <div class="action-buttons">
+                    <button id="toggle-review-btn" class="btn btn-secondary">後で見返す</button>
+                    <div id="answer-feedback-buttons">
+                        <button id="show-answer-btn" class="btn btn-primary">解答を表示</button>
+                        <div id="feedback-buttons" class="hidden">
+                            <button id="incorrect-btn" class="btn btn-danger">不正解</button>
+                            <button id="correct-btn" class="btn btn-success">正解</button>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        <!-- 結果画面 -->
+        <div id="results-screen" class="screen">
+            <header>
+                <h1>今回の結果</h1>
+            </header>
+            <main>
+                <div class="results-summary">
+                    <h2>総合正答率</h2>
+                    <p id="total-accuracy">80% (8/10)</p>
+                    <h2>品詞別正答率</h2>
+                    <div id="pos-accuracy">
+                        <!-- JSで生成 -->
+                    </div>
+                </div>
+                <div id="review-words-section" class="word-list-section">
+                    <h2>「後で見る」単語</h2>
+                    <ul id="review-words-list">
+                        <!-- JSで生成 -->
+                    </ul>
+                </div>
+                <div id="incorrect-words-section" class="word-list-section">
+                    <h2>間違えた単語</h2>
+                    <ul id="incorrect-words-list">
+                        <!-- JSで生成 -->
+                    </ul>
+                </div>
+                <button id="finish-btn" class="btn btn-primary">終了</button>
+            </main>
+        </div>
+
+        <!-- 統計画面 -->
+        <div id="stats-screen" class="screen">
+            <header>
+                <h1>今までの結果</h1>
+            </header>
+            <main>
+                <div class="stats-controls">
+                    <div id="stats-lesson-selection-wrapper">
+                        <!-- JSで生成 -->
+                    </div>
+                </div>
+                <div id="stats-grid">
+                    <!-- JSで生成 -->
+                </div>
+                <div class="word-list-section weak-words-section">
+                    <h2>苦手な単語</h2>
+                     <div class="weak-words-controls">
+                        <label for="weak-word-count">表示数:</label>
+                        <input type="number" id="weak-word-count" value="30" min="5" max="100">
+                    </div>
+                    <ul id="weak-words-list">
+                        <!-- JSで生成 -->
+                    </ul>
+                </div>
+
+                <button id="back-to-settings-btn" class="btn btn-secondary">戻る</button>
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

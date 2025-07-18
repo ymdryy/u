@@ -1,0 +1,39 @@
+{
+  "lessons": [
+    {
+      "lesson": 1,
+      "title": "第1課: 基本的な挨拶",
+      "words": [
+        { "id": 1001, "simplified": "你好", "pinyin": "nǐ hǎo", "japanese": "こんにちは", "pos": "挨拶" },
+        { "id": 1002, "simplified": "谢谢", "pinyin": "xièxie", "japanese": "ありがとう", "pos": "動詞" },
+        { "id": 1003, "simplified": "不客气", "pinyin": "bú kèqi", "japanese": "どういたしまして", "pos": "成句" },
+        { "id": 1004, "simplified": "再见", "pinyin": "zàijiàn", "japanese": "さようなら", "pos": "挨拶" },
+        { "id": 1005, "simplified": "对不起", "pinyin": "duìbuqǐ", "japanese": "ごめんなさい", "pos": "動詞" }
+      ]
+    },
+    {
+      "lesson": 2,
+      "title": "第2課: 自己紹介",
+      "words": [
+        { "id": 2001, "simplified": "我", "pinyin": "wǒ", "japanese": "わたし", "pos": "代名詞" },
+        { "id": 2002, "simplified": "是", "pinyin": "shì", "japanese": "～です", "pos": "動詞" },
+        { "id": 2003, "simplified": "老师", "pinyin": "lǎoshī", "japanese": "先生", "pos": "名詞" },
+        { "id": 2004, "simplified": "学生", "pinyin": "xuésheng", "japanese": "学生", "pos": "名詞" },
+        { "id": 2005, "simplified": "叫", "pinyin": "jiào", "japanese": "（名前を）～という", "pos": "動詞" },
+        { "id": 2006, "simplified": "什么", "pinyin": "shénme", "japanese": "なに", "pos": "疑問詞" },
+        { "id": 2007, "simplified": "名字", "pinyin": "míngzi", "japanese": "名前", "pos": "名詞" }
+      ]
+    },
+    {
+      "lesson": 3,
+      "title": "第3課: 家族",
+      "words": [
+        { "id": 3001, "simplified": "家", "pinyin": "jiā", "japanese": "家、家族", "pos": "名詞" },
+        { "id": 3002, "simplified": "有", "pinyin": "yǒu", "japanese": "ある、いる", "pos": "動詞" },
+        { "id": 3003, "simplified": "爸爸", "pinyin": "bàba", "japanese": "お父さん", "pos": "名詞" },
+        { "id": 3004, "simplified": "妈妈", "pinyin": "māma", "japanese": "お母さん", "pos": "名詞" },
+        { "id": 3005, "simplified": "哥哥", "pinyin": "gēge", "japanese": "お兄さん", "pos": "名詞" }
+      ]
+    }
+  ]
+}
