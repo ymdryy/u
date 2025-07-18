@@ -42,9 +42,8 @@ body {
 
 
 .container {
-    max-width: 800px;
+width: min(100% - 40px,var(--width-s));
     margin: 20px auto;
-    padding: 20px;
     padding-bottom: 150px;
     /* フッターのスペース確保 */
 }
