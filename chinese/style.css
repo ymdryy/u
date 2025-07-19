@@ -16,36 +16,49 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 /* 基本設定 */
 :root {
-    /* 修正: 中国語フォントをNoto Sans SCに指定 */
     --font-family-cn: 'Noto Sans SC', sans-serif;
+    --wrong: #ff5e00;
+    --wronghover: #ff0000;
+    --correct: #006aff;
+    --correcthover: #0000ff;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --wrong: #ff4400;
+        --wronghover: #ff3737;
+        --correct: #008cff;
+        --correcthover: #3366ff;
+    }
 }
 
 body {
-    /* 修正: LineSeedJPを基本フォントに設定 */
     font-family: 'LSeedJP', sans-serif;
     background-color: var(--firstback);
     color: var(--maintext);
     margin: 0;
     line-height: 1.6;
+    overscroll-behavior-x: none;
+    /* スワイプバック時の画面端のバウンスを無効化 */
+    padding-top: 80px;
+    /* 固定ヘッダー分のスペース */
 }
 
-/* 修正: 中国語が表示される要素に専用フォントを適用 */
 [lang="zh-CN"],
 .simplified,
 .pinyin {
     font-family: var(--font-family-cn);
 }
 
-
 .container {
-width: min(100% - 40px,var(--width-s));
-    margin: 20px auto;
+    width: min(100% - 40px, var(--width-s));
+    margin: 0 auto;
     padding-bottom: 150px;
-    /* フッターのスペース確保 */
 }
 
 /* 画面切り替え */
@@ -54,7 +67,7 @@ width: min(100% - 40px,var(--width-s));
 
     &.active {
         display: block;
-        animation: fadeIn 0.5s ease-in-out;
+        animation: fadeIn 0.3s ease-in-out;
     }
 }
 
@@ -69,26 +82,100 @@ width: min(100% - 40px,var(--width-s));
 }
 
 /* ヘッダー */
-header {
-    text-align: center;
-    margin-bottom: 2rem;
+.main-header,
+.page-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--headerback);
+    backdrop-filter: blur(10px);
+    padding: 0 20px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page-header {
+    justify-content: space-between;
 
     h1 {
-        color: var(--maintext);
-    }
-}
-
-.exercise-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-
-    #progress-text {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         font-weight: bold;
     }
+
+    .header-in {
+        width: min(100%, var(--width-s));
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        position: relative;
+
+        h1 {
+            text-align: center;
+        }
+    }
 }
+
+.back-btn {
+    position: absolute;
+    left: -10px; /* 少し左に調整 */
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--themecolor);
+    cursor: pointer;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0;
+    /* テキストを隠す */
+}
+
+.back-btn::before {
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-bottom: 3px solid var(--themecolor);
+    border-left: 3px solid var(--themecolor);
+    transform: rotate(45deg);
+}
+
+/* 練習画面ヘッダー */
+.exercise-header-center {
+    text-align: center;
+    line-height: 1.3;
+    margin: 5px 0 0;
+
+    span {
+        display: block;
+    }
+}
+
+#exercise-scope {
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+#progress-text {
+    font-weight: bold;
+}
+
+#exit-exercise-btn {
+    position: absolute;
+    right: 0;
+    top: calc((64px - 36.78px)/2);
+    width: auto;
+}
+
 
 /* カードスタイル */
 .settings-card,
@@ -113,8 +200,8 @@ header {
 
 .checkbox-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
 
     label {
         display: block;
@@ -139,8 +226,7 @@ header {
             transition: all 0.2s ease;
 
             &:hover {
-                border: 2px solid var(--themecolor);
-                filter: drop-shadow(0 0 8px var(--themecolor));
+                border-color: var(--themecolor);
             }
         }
     }
@@ -163,14 +249,9 @@ header {
             margin-right: 0.5rem;
         }
 
-        &:has(input:checked),
         &:has(input:checked) {
             background-color: var(--fifthback);
             border-color: var(--themecolor);
-        }
-
-        &:hover {
-            filter: drop-shadow(0 0 8px var(--themecolor));
         }
     }
 }
@@ -270,15 +351,6 @@ select {
     ul {
         list-style: none;
         padding: 0;
-
-        li {
-            padding: 0.5rem;
-            border-bottom: 1px solid var(--thirdback);
-
-            &:last-child {
-                border-bottom: none;
-            }
-        }
     }
 }
 
@@ -289,6 +361,11 @@ select {
     border-bottom: 2px solid var(--thirdback);
     padding-bottom: 10px;
     margin: 40px 0 15px;
+}
+
+.percent {
+    font-size: 0.8rem;
+    opacity: 0.8;
 }
 
 #pos-accuracy {
@@ -304,7 +381,6 @@ select {
     }
 }
 
-/* 単語リストのテーブル風レイアウト */
 .word-list-section ul {
     list-style: none;
     padding: 0;
@@ -334,16 +410,37 @@ select {
     }
 }
 
+.result-actions {
+    margin: 40px 0;
+    padding: 20px 0;
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    backdrop-filter: blur(5px);
+
+    .save-result-option {
+        margin-bottom: 1rem;
+    }
+}
+
+.button-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-start;
+
+    .btn {
+        flex-grow: 0;
+    }
+}
+
 .stats-controls {
     background: var(--secondback);
     border-radius: 20px;
     padding: 15px;
     margin-bottom: 1.5rem;
 
-    #stats-lesson-selection-wrapper {
-        .btn {
-            margin-bottom: 1rem;
-        }
+    #stats-lesson-selection-wrapper .btn {
+        margin-bottom: 1rem;
     }
 }
 
@@ -370,14 +467,13 @@ select {
 
 #stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 10px;
 
     .stats-box {
         background: var(--secondback);
         border-radius: 20px;
         padding: 1.5rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         text-align: center;
 
         h3 {
@@ -399,29 +495,158 @@ select {
     .total-stats {
         grid-column: 1 / -1;
 
-        h3 {
-            margin: 0;
-        }
-
         p {
             font-size: 3rem;
         }
+    }
+}
 
-        small {
-            opacity: 0.8;
+/* 学習設定画面 (iPhone風) */
+.config-list {
+    list-style: none;
+    padding: 0;
+    background-color: var(--secondback);
+    border-radius: 20px;
+    margin: 1rem 0;
+    overflow: hidden;
+
+    .config-item {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        border-bottom: 1px solid var(--line);
+
+        &:last-child {
+            border-bottom: none;
         }
+
+        &:hover {
+            background-color: var(--thirdback);
+        }
+
+        .config-label {
+            flex-grow: 1;
+        }
+
+        .config-chevron {
+            font-weight: bold;
+            color: var(--subtext);
+        }
+    }
+}
+
+.config-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+
+    .nav-btn {
+        flex-grow: 1;
+
+        &.active {
+            background-color: var(--themecolor);
+            color: white;
+        }
+    }
+}
+
+.config-word-list ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.8rem;
+        border-bottom: 1px solid var(--line);
+
+        .word-info {
+            flex-grow: 1;
+        }
+
+        .word-stats {
+            font-size: 0.8rem;
+            color: var(--subtext);
+            margin-right: 1rem;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 28px;
+
+            input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+
+                &:checked+.slider {
+                    background-color: var(--themecolor);
+                }
+
+                &:checked+.slider:before {
+                    transform: translateX(22px);
+                }
+            }
+
+            .slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: var(--sixthback);
+                transition: .2s;
+                border-radius: 28px;
+
+                &:before {
+                    position: absolute;
+                    content: "";
+                    height: 20px;
+                    width: 20px;
+                    left: 4px;
+                    bottom: 4px;
+                    background-color: white;
+                    transition: .2s;
+                    border-radius: 50%;
+                }
+            }
+        }
+    }
+}
+
+.data-management-list ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        background-color: var(--thirdback);
+        border-radius: 8px;
+        margin-bottom: 1rem;
     }
 }
 
 /* 汎用コンポーネント */
 .btn {
     padding: 0.8rem 1.5rem;
+    width: fit-content;
+    margin: 0;
     border: none;
     border-radius: 10px;
     cursor: pointer;
     font-size: 1rem;
     font-weight: bold;
-    transition: background-color 0.3s, transform 0.1s;
+    transition: all 0.3s, transform 0.1s;
     background-color: var(--btn);
     color: var(--btntext);
 
@@ -434,6 +659,10 @@ select {
     }
 }
 
+.exercise-footer .btn {
+    width: 100%;
+}
+
 .btn-primary {
     background-color: var(--themecolor);
     color: #fff;
@@ -444,21 +673,21 @@ select {
 }
 
 .btn-success {
-    background-color: var(--themecolor);
+    background-color: var(--correct);
     color: #fff;
+}
 
-    &:hover {
-        background-color: var(--themecolorhover);
-    }
+.btn-success:hover {
+    background-color: var(--correcthover);
 }
 
 .btn-danger {
-    background-color: var(--accentcolor);
+    background-color: var(--wrong);
     color: #fff;
+}
 
-    &:hover {
-        background-color: var(--accentcolorhover);
-    }
+.btn-danger:hover {
+    background-color: var(--wronghover);
 }
 
 .btn-sm {
